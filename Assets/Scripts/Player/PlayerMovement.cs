@@ -1,7 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+
     [SerializeField] CharacterController chController;
     [SerializeField] float speed = 10f;
     [SerializeField] Transform groundCheck;
@@ -11,46 +14,47 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float gravity = -9.8f;
     [SerializeField] GameObject maxLeft;
     [SerializeField] GameObject maxRight;
+
     private Vector3 velocity; 
+    private bool isGrounded;
+
+    private bool canMoveRight;
+    private bool canMoveLeft;
+
+    void Start()
+    {
+        
+    }
 
     void Update()
     {
-        InitializesMovement();
-    }
 
-    public void InitializesMovement()
-    {
-        if (IsGounded() && velocity.y < 0)
+        isGrounded = Physics.CheckSphere(groundCheck.position, sphereRadius, groundMask);
+
+        if (isGrounded && velocity.y<0) 
         {
             velocity.y = -2f;
         }
 
-        chController.Move(DefinitionOfDirectionAndMovement() * speed * Time.deltaTime);
+        float z = Input.GetAxis("Horizontal");
+        float y = Input.GetAxis("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.Space) && IsGounded())
+        float zInput = transform.position.z;
+        float maxRightZ = maxRight.transform.position.z;
+        float maxLeftZ = maxLeft.transform.position.z;
+
+        Vector3 move = transform.forward * z;
+
+        chController.Move(move * speed * Time.deltaTime);
+
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            Jump();
+            velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
         }
 
         velocity.y += gravity * Time.deltaTime;
+
         chController.Move(velocity * Time.deltaTime);
-    }
 
-
-    private void Jump()
-    {
-        velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
     }
-
-    private Vector3 DefinitionOfDirectionAndMovement()
-    {
-        float valueOfTheVirtualAxisZ  = Input.GetAxis("Horizontal");
-        return transform.forward * valueOfTheVirtualAxisZ;
-    }
-    private bool IsGounded()
-    {
-        return  Physics.CheckSphere(groundCheck.position, sphereRadius, groundMask);
-    }
-
-   
 }

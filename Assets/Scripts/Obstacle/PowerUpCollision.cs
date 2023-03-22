@@ -1,19 +1,26 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class PowerUpCollision : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
-    { 
-        if (other.CompareTag("Player"))
-        {
-            WeSubtractLifeAndPoints();
-            gameObject.SetActive(false);
-        }
+    
+    void Start()
+    {
+        
     }
 
-    public void WeSubtractLifeAndPoints()
+    // Update is called once per frame
+    void Update()
     {
-        GameManager.Instance.ScoreManager.SubtractPoints();
-        GameManager.Instance.LiveManager.SubtractLives();
+        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {            
+            gameObject.SetActive(false);
+        }
     }
 }
