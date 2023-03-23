@@ -1,84 +1,79 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Scripts.SoccerGoal.Common;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
+using static Assets.Scripts.SoccerGoal.Common.Enum;
 
 public class SoccerGoal : MonoBehaviour
 {
-    public bool enableGoal;
-    public bool random;
-    public float speedGoal = 10f;
-    public float minZGoal;
-    public float maxZGoal;
-    public float waitingTimeGoal = 2f;
 
-    public GameObject archer;
-    public bool enableArcher=false;
-    public float speedArcher = 10f;
-    public float longZArcher;
-
+    Goal goal = new Goal();
+    Archer archer = new Archer();
     private GameObject _targetGoal;
+    public  GameObject gameObjectArcher;
     private GameObject _targetArcher;
-    private bool directionRightGoal=false;
-    private bool directionRightArcher= false;
-    private bool movingGoal = false;
-    private bool movingArcher = false;
-    private int stateMachineNumber = 0;
+    private int machineStatusNumber = (int)MachineStatusNumber.moveArc;
 
-    
     void Update()
     {
-        switch (stateMachineNumber)
+        switch (machineStatusNumber)
         {
-            case 2:
-                stateMachineNumber = 0;
+            case (int)MachineStatusNumber.restartStatus:
+                setMachineStatusNumber(MachineStatusNumber.moveArc); 
                 break;
 
-            case 1:
-                if (enableArcher == true)
-                {
-                    if (movingArcher == false && movingGoal == false)
-                    {
-                        UpdateTargetArcher();
-                        StartCoroutine("ArcherToTarget");
-                    }
-                }
-                else stateMachineNumber = 0;
+            case (int)MachineStatusNumber.moveArcher:
+                UpdateTargerAndStartCoroutineArcher();
                 break;
 
-            case 0:
-                if (enableGoal == true)
-                {
-                    if (movingGoal == false && movingArcher == false)
-                    {
-                        UpdateTargetGoal();
-                        StartCoroutine("GoalToTarget");
-                    }
-                }
-                else stateMachineNumber = 1;
+            case (int)MachineStatusNumber.moveArc:
+                UpdateTargerAndStartCoroutineGoal();
                 break;
         }
     }
+
+    private void UpdateTargerAndStartCoroutineGoal()
+    {
+        if (goal.IsGoalEnabled)
+        {
+            if (  !goal.IsMoving  && !archer.IsMoving  )
+            {
+                UpdateTargetGoal();
+                StartCoroutine("MoveTowardsTargetOverTimeCoroutineGoal");
+            }
+        }
+        else setMachineStatusNumber(MachineStatusNumber.moveArcher);
+    }
+
+    private void UpdateTargerAndStartCoroutineArcher()
+    {
+        if (archer.IsArcherEnabled)
+        {
+            if (!archer.IsMoving && !goal.IsMoving )
+            {
+                UpdateTargetArcher();
+                StartCoroutine("MoveTowardsTargetOverTimeCoroutineArcher");
+            }
+        }
+        else setMachineStatusNumber(MachineStatusNumber.moveArc);
+    }
+
+    private void setMachineStatusNumber(Enum.MachineStatusNumber newValue)
+    {
+        machineStatusNumber = (int)System.Enum.GetValues(typeof(MachineStatusNumber)).OfType<MachineStatusNumber>().Where( x => x == newValue).SingleOrDefault();
+    }
+
     private void UpdateTargetGoal()
     {
         if (_targetGoal == null)
         {
             _targetGoal = new GameObject("TargetGoal");
         }  
-        if (random == true)
+        if (goal.IsRandomMovementEnable)
         {
-            float randomPosition = Random.Range(minZGoal,maxZGoal);
+            float randomPosition = Random.Range(goal.ZminValue,goal.ZmaxValue);
             _targetGoal.transform.position = new Vector3(transform.position.x, transform.position.y, randomPosition);
-        }else
-        if (directionRightGoal == false)
-        {
-            _targetGoal.transform.position = new Vector3(transform.position.x, transform.position.y, maxZGoal); // a la derecha
-            directionRightGoal = true;
-        }else 
-        {
-            _targetGoal.transform.position = new Vector3(transform.position.x, transform.position.y, minZGoal); // a la izquierda
-            directionRightGoal = false;
         }
-
     }
 
     private void UpdateTargetArcher()
@@ -87,43 +82,42 @@ public class SoccerGoal : MonoBehaviour
         {
             _targetArcher = new GameObject("TargetArcher");
         }
-        if (directionRightArcher == false)
+        if (!archer.MovementStartsRight)
         {
-            _targetArcher.transform.position = new Vector3(archer.transform.position.x, archer.transform.position.y, archer.transform.position.z + longZArcher);
-            directionRightArcher = true;
+            _targetArcher.transform.position = new Vector3(gameObjectArcher.transform.position.x, gameObjectArcher.transform.position.y, gameObjectArcher.transform.position.z + archer.ArcherkeeperZDistance);
+            archer.setMovementStartsRight(true);
         } else 
         {
-            _targetArcher.transform.position = new Vector3(archer.transform.position.x, archer.transform.position.y, archer.transform.position.z - longZArcher);
-            directionRightArcher = false;
+            _targetArcher.transform.position = new Vector3(gameObjectArcher.transform.position.x, gameObjectArcher.transform.position.y, gameObjectArcher.transform.position.z - archer.ArcherkeeperZDistance);
         }
     }
-
-    IEnumerator GoalToTarget()
+    
+    IEnumerator MoveTowardsTargetOverTimeCoroutineGoal()
     {
-        movingGoal = true;
+        goal.setIsMoving(true);
         while (Vector3.Distance(transform.position, _targetGoal.transform.position) > 0.05f)
         {
             Vector3 direction = _targetGoal.transform.position - transform.position;
-            float zDirection = direction.z;
-            transform.Translate(direction.normalized * speedGoal * Time.deltaTime);
+            transform.Translate(direction.normalized * goal.TargetSpeed * Time.deltaTime);
             yield return null;
         }
-        yield return new WaitForSeconds(waitingTimeGoal);
-        movingGoal = false;
-        stateMachineNumber += 1;
+        yield return new WaitForSeconds(goal.WaitingTime);
+        goal.setIsMoving(false);
+        setMachineStatusNumber(MachineStatusNumber.moveArcher);
     }
 
-    IEnumerator ArcherToTarget()
+    IEnumerator MoveTowardsTargetOverTimeCoroutineArcher()
     {
-        movingArcher = true;
-        while (Vector3.Distance(archer.transform.position, _targetArcher.transform.position) > 0.05f)
+
+        goal.setIsMoving(true);
+        while (Vector3.Distance(gameObjectArcher.transform.position, _targetArcher.transform.position) > 0.05f)
         {
-            Vector3 direction = _targetArcher.transform.position - archer.transform.position;
-            float zDirection = direction.z;
-            archer.transform.Translate(direction.normalized * speedArcher * Time.deltaTime);
+            Vector3 direction = _targetArcher.transform.position - gameObjectArcher.transform.position;
+            gameObjectArcher.transform.Translate(direction.normalized * archer.TargetSpeed * Time.deltaTime);
             yield return null;
         }
-        movingArcher = false;
-        stateMachineNumber += 1;
+        archer.setIsMoving(false);
+        setMachineStatusNumber(MachineStatusNumber.moveArcher);
     }
+    
 }

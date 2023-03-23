@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
 
 public class EndlessScroll : MonoBehaviour
 {
@@ -16,11 +13,6 @@ public class EndlessScroll : MonoBehaviour
         objectToMove.velocity = gameVelocity * scrollFactor;
     }
          
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerExit(Collider gameArea)
     {
         if (gameArea.gameObject.tag.Equals("GameArea"))

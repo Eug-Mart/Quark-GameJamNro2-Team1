@@ -4,23 +4,19 @@ using UnityEngine;
 
 public class PowerUpCollision : MonoBehaviour
 {
-    
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
-        {            
+        if (other.CompareTag("Player"))
+        {
+            WeSubtractLifeAndPoints();
             gameObject.SetActive(false);
         }
+    }
+
+    public void WeSubtractLifeAndPoints()
+    {
+        GameManager.Instance.ScoreManager.SubtractPoints();
+        GameManager.Instance.LiveManager.SubtractLives();
     }
 }

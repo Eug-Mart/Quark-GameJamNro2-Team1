@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class GameOverScreen : MonoBehaviour
 {
+
     public Text scoreText;
 
     public void Setup()
@@ -13,6 +14,7 @@ public class GameOverScreen : MonoBehaviour
 
     public void OnRestartButtonClicked()
     {
+        gameObject.SetActive(false);
         SceneManager.LoadScene("PlayerScene");
     }
 
