@@ -26,6 +26,8 @@ public class GameOverManager : MonoBehaviour
     public void OnBackMainMenuButtonClicked()
     {
         SceneManager.LoadScene("MainMenu");
+        GameManager.Instance.ScoreManager.ResetScore();
+        GameManager.Instance.LiveManager.ResetLives();
     }
 
 }
