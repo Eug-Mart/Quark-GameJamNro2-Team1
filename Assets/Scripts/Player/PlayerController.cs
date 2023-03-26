@@ -2,14 +2,19 @@
 
 public class PlayerController : MonoBehaviour
 {
-    public GameOverScreen gameOverScreen;
+    public GameOverManager gameOverManager;
+    public ScoreEnterHandler scoreEnterHandler;
+    private bool isDead = false;
 
     void Update()
     {
-        if (GameOver())
+        if (GameOver() && !isDead)
         {
-            gameOverScreen.Setup();
+            isDead = true;
+            gameOverManager.CallGameOver();
+            scoreEnterHandler.AddScorePlayerToList();
         }
+
     }
 
     public bool GameOver()

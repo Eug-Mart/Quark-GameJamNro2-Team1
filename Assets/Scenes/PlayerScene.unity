@@ -366,6 +366,51 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1187611823}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &192527131
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 192527133}
+  - component: {fileID: 192527132}
+  m_Layer: 0
+  m_Name: GameOverManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &192527132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 192527131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ccc739180d411348b35f521b7f4e87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOverUI: {fileID: 198225104}
+  scoreText: {fileID: 1717165410}
+--- !u!4 &192527133
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 192527131}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 415.5, y: 204.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &198225104
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,7 +422,6 @@ GameObject:
   - component: {fileID: 198225105}
   - component: {fileID: 198225108}
   - component: {fileID: 198225107}
-  - component: {fileID: 198225106}
   m_Layer: 5
   m_Name: BackgroundGameOver
   m_TagString: Untagged
@@ -398,6 +442,7 @@ RectTransform:
   m_Children:
   - {fileID: 884058102}
   - {fileID: 1717165409}
+  - {fileID: 986170169}
   - {fileID: 228045506}
   m_Father: {fileID: 359019893}
   m_RootOrder: 2
@@ -407,19 +452,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 365.5451, y: 245.8309}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &198225106
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 198225104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0be31ac167e6a6a45b2745785fe6c43a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoreText: {fileID: 1717165410}
 --- !u!114 &198225107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -563,9 +595,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1700358825}
-  - {fileID: 986170169}
   m_Father: {fileID: 198225105}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -615,7 +646,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 198225106}
+      - m_Target: {fileID: 192527132}
         m_MethodName: OnRestartButtonClicked
         m_Mode: 1
         m_Arguments:
@@ -1664,12 +1695,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 74105331}
-  m_Father: {fileID: 228045506}
-  m_RootOrder: 1
+  m_Father: {fileID: 198225105}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -44}
+  m_AnchoredPosition: {x: 0, y: -91}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &986170170
@@ -1715,7 +1746,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 198225106}
+      - m_Target: {fileID: 192527132}
         m_MethodName: OnBackMainMenuButtonClicked
         m_Mode: 1
         m_Arguments:
@@ -3160,8 +3191,8 @@ GameObject:
   - component: {fileID: 2130852330}
   - component: {fileID: 2130852329}
   - component: {fileID: 2130852334}
-  - component: {fileID: 2130852337}
   - component: {fileID: 2130852333}
+  - component: {fileID: 2130852337}
   - component: {fileID: 2130852336}
   - component: {fileID: 2130852335}
   m_Layer: 0
@@ -3326,7 +3357,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddac9a0d6ab59d442bd96e71185d4f67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverScreen: {fileID: 198225106}
+  gameOverManager: {fileID: 192527132}
+  scoreEnterHandler: {fileID: 1227537457}
 --- !u!1001 &6849935053521062685
 PrefabInstance:
   m_ObjectHideFlags: 0

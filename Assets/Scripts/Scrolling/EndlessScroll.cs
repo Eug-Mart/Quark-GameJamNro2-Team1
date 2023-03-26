@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
-
 public class EndlessScroll : MonoBehaviour
 {
-
     [SerializeField] private float scrollFactor = 1f;
     [SerializeField] private Vector3 gameVelocity;
 

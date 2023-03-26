@@ -28,6 +28,7 @@ public class MainMenuPresenter
         panelBestScores.SetActive(true);
     }
 
+
     public void OnBackButtonClicked(GameObject panelBestScores)
     {
         panelBestScores.SetActive(false);
