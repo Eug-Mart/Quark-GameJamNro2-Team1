@@ -4,7 +4,7 @@ public class PlayerController : MonoBehaviour
 {
     public GameOverManager gameOverManager;
     public ScoreEnterHandler scoreEnterHandler;
-    private bool isDead = false;
+    public static bool isDead = false;
 
     void Update()
     {
