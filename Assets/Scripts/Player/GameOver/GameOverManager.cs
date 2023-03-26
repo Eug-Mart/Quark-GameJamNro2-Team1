@@ -18,14 +18,19 @@ public class GameOverManager : MonoBehaviour
     public void OnRestartButtonClicked()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex , LoadSceneMode.Single);
-        GameManager.Instance.ScoreManager.ResetScore();
-        GameManager.Instance.LiveManager.ResetLives();
+        ResetLivesAndScore();   
         PlayerController.isDead = false;
 
     }
     public void OnBackMainMenuButtonClicked()
     {
         SceneManager.LoadScene("MainMenu");
+        ResetLivesAndScore();
+
+    }
+
+    private void ResetLivesAndScore()
+    {
         GameManager.Instance.ScoreManager.ResetScore();
         GameManager.Instance.LiveManager.ResetLives();
     }
