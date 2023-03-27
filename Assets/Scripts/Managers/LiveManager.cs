@@ -1,5 +1,4 @@
-﻿
-public class LiveManager 
+﻿public class LiveManager 
 {
     private int lives  = 3;
     public void AddLives()
@@ -27,7 +26,11 @@ public class LiveManager
 
     public bool GameOver()
     {
-        return lives == 0;
+        return lives <= 0;
+    }
+
+    public void ResetLives() {
+        lives = 3;
     }
 
 }

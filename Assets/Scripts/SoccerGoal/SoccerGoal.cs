@@ -1,8 +1,8 @@
-﻿using Assets.Scripts.SoccerGoal.Common;
+﻿using Assets.Scripts.SoccerGoal.Enum;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using static Assets.Scripts.SoccerGoal.Common.Enum;
+using static Assets.Scripts.SoccerGoal.Enum.Enum;
 
 public class SoccerGoal : MonoBehaviour
 {

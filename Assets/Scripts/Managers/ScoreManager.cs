@@ -22,4 +22,9 @@ public class ScoreManager
     {
         return score;
     }
+
+    public void ResetScore()
+    {
+        score = 1000;
+    }
 }

@@ -7,8 +7,7 @@ using System.Linq;
 public static class FileHandler { 
     public static void SaveToJSON<T>(List<T> toSave, string fileName)
     {
-        Debug.Log(GetPath(fileName));
-        string content = JsonHelper.ToJson<T>(toSave.ToArray());
+        string content = JsonHelper.ToJson<T>(toSave.ToArray() , true);
         WriteFile( GetPath(fileName) , content );
     }
 
@@ -21,36 +20,26 @@ public static class FileHandler {
     public static List<T> ReadListFromJSON<T>(string filename)
     {
         string content = ReadFile(GetPath(filename));
-
         if (string.IsNullOrEmpty(content) || content == "{}")
         {
             return new List<T>();
         }
-
-        List<T> res = JsonHelper.FromJson<T>(content).ToList();
-
-        return res;
-
+        return JsonHelper.FromJson<T>(content).ToList();
     }
 
     public static T ReadFromJSON<T>(string filename)
     {
         string content = ReadFile(GetPath(filename));
-
         if (string.IsNullOrEmpty(content) || content == "{}")
         {
             return default(T);
         }
-
-        T res = JsonUtility.FromJson<T>(content);
-
-        return res;
-
+        return JsonUtility.FromJson<T>(content);
     }
 
     private static string GetPath(string filename)
     {
-        return Application.persistentDataPath + "/" + filename;
+        return $"{Application.persistentDataPath}/{filename}";
     }
 
     private static void WriteFile(string path, string content)
@@ -72,7 +61,7 @@ public static class FileHandler {
                 return content;
             }
         }
-        return "";
+        return string.Empty;
     }
 }
 

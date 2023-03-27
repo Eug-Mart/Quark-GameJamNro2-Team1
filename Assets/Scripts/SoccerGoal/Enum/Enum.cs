@@ -1,6 +1,5 @@
-﻿using System;
-
-namespace Assets.Scripts.SoccerGoal.Common
+﻿
+namespace Assets.Scripts.SoccerGoal.Enum
 {
     public class Enum 
     {
