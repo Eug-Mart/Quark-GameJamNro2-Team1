@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float gravity = -9.8f;
     [SerializeField] GameObject maxLeft;
     [SerializeField] GameObject maxRight;
-
     private Vector3 velocity; 
 
     void Update()
