@@ -2,21 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerUpCollision : MonoBehaviour
+public class ObstacleCollsiion : MonoBehaviour
 {
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            WeIncrementLifeAndPoints();
+            WeSubtractLifeAndPoints();
             gameObject.SetActive(false);
         }
     }
 
-    public void WeIncrementLifeAndPoints()
+    public void WeSubtractLifeAndPoints()
     {
-        GameManager.Instance.ScoreManager.AddPoints();
-        GameManager.Instance.LiveManager.AddLives();
+        GameManager.Instance.ScoreManager.SubtractPoints();
+        GameManager.Instance.LiveManager.SubtractLives();
     }
 }

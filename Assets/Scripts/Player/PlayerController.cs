@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     public bool GameOver()
     {
-        return GameManager.Instance.LiveManager.GameOver();
+        return GameManager.Instance.LiveManager.GameOver();        
     }
     
 }

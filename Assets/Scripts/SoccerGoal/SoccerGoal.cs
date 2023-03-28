@@ -108,7 +108,6 @@ public class SoccerGoal : MonoBehaviour
 
     IEnumerator MoveTowardsTargetOverTimeCoroutineArcher()
     {
-
         goal.setIsMoving(true);
         while (Vector3.Distance(gameObjectArcher.transform.position, _targetArcher.transform.position) > 0.05f)
         {
@@ -118,6 +117,5 @@ public class SoccerGoal : MonoBehaviour
         }
         archer.setIsMoving(false);
         setMachineStatusNumber(MachineStatusNumber.moveArcher);
-    }
-    
+    }    
 }
