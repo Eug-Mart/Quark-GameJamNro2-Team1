@@ -4,9 +4,9 @@
 
     public bool IsGoalEnabled = true;
     public bool IsRandomMovementEnable = true;
-    public float TargetSpeed = 10f;
-    public float ZminValue = -10;
-    public float ZmaxValue = 10;
+    public float TargetSpeed = 4f;
+    public float ZminValue = -5;
+    public float ZmaxValue = 5;
     public float WaitingTime = 1f;
     public bool MovementStartsRight = false;
     public bool IsMoving = false;
