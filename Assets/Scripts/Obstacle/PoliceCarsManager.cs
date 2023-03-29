@@ -7,12 +7,12 @@ public class PoliceCarsManager : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            WeSubtractLifeAndPoints();
+            WeIncrementLifeAndPoints();
             gameObject.SetActive(false);
         }
     }
 
-    public void WeSubtractLifeAndPoints()
+    public void WeIncrementLifeAndPoints()
     {
         GameManager.Instance.ScoreManager.SubtractPoints(numberScoreToSubstract);
         GameManager.Instance.LiveManager.SubtractLives();
