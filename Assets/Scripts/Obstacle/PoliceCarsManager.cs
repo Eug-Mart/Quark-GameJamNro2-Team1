@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-public class PowerUpCollision : MonoBehaviour
+public class PoliceCarsManager : MonoBehaviour
 {
-
+    private const int numberScoreToSubstract = 15;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -14,7 +14,7 @@ public class PowerUpCollision : MonoBehaviour
 
     public void WeSubtractLifeAndPoints()
     {
-        GameManager.Instance.ScoreManager.SubtractPoints();
+        GameManager.Instance.ScoreManager.SubtractPoints(numberScoreToSubstract);
         GameManager.Instance.LiveManager.SubtractLives();
     }
 }

@@ -1,30 +1,30 @@
 ﻿
 public class ScoreManager 
 {
-    private int score = 1000;
+    private int scoreInitial = 1000;
 
     public void AddPoints()
     {
-        score+=10;
+        scoreInitial += 10;
     }    
 
-    public void SubtractPoints() 
+    public void SubtractPoints(int score) 
     {
-        score-=10;
+        scoreInitial -= score;
 
-        if (score < 0)
+        if (scoreInitial < 0)
         {
-            score = 0;
+            scoreInitial = 0;
         }
     }
 
     public int GetScore()
     {
-        return score;
+        return scoreInitial;
     }
 
     public void ResetScore()
     {
-        score = 1000;
+        scoreInitial = 1000;
     }
 }
