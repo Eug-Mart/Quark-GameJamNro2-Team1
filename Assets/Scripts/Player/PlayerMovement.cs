@@ -79,4 +79,9 @@ public class PlayerMovement : MonoBehaviour
     {
         enabledFreeMovement = true;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.name);
+    }
 }

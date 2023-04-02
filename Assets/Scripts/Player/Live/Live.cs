@@ -11,6 +11,6 @@ public class Live : MonoBehaviour
 
     public void UpdateLiveeValue()
     {
-        liveValue.text = GameManager.Instance.LiveManager.GetLives().ToString();
+        liveValue.text = "Lives " + GameManager.Instance.LiveManager.GetLives().ToString();
     }
 }
