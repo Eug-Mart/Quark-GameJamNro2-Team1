@@ -13,7 +13,7 @@ public class EndlessScroll : MonoBehaviour
          
     private void OnTriggerExit(Collider gameArea)
     {
-        if (gameArea.gameObject.tag.Equals("GameArea"))
+        if (gameArea.gameObject.tag.Equals("GameArea")) 
         {
             transform.position -= Vector3.right * (gameArea.bounds.size.x + GetComponent<BoxCollider>().size.x);
         }

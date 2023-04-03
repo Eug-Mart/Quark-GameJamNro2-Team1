@@ -3,7 +3,7 @@ public class Archer
 {
     #region Properties and fields
 
-    public bool IsArcherEnabled = false;
+    public bool IsArcherEnabled = true;
     public float TargetSpeed = 5f;
     public float ArcherkeeperZDistance = 6f;
     public bool MovementStartsRight = false;
