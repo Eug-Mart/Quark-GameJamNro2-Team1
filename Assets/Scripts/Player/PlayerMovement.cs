@@ -14,13 +14,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject maxRight;
 
     private Vector3 velocity;
-    private bool enabledFreeMovement;
+    private bool disablePlayerMovement;
 
     private void Start()
     {
         if (GameManager.Instance != null)
         {
-            GameManager.Instance.OnPlayerTimeElapsed += EnablePlayerFreeMovement;
+            GameManager.Instance.OnPlayerTimeElapsed += DisablePlayerMovement;
         }
     }
 
@@ -60,23 +60,15 @@ public class PlayerMovement : MonoBehaviour
         float valueEjeZ = Input.GetAxis("Horizontal");
         float valueEjeX = Input.GetAxis("Vertical");
 
-        if (!enabledFreeMovement)
-        {
-            return transform.forward * valueEjeZ;
-        }
-        else
-        {
-            return transform.forward * valueEjeZ + transform.right * -valueEjeX;
-        }
-        
+        return transform.forward * valueEjeZ;
     }
     private bool CheckPlayerIsGrounded()
     {
         return Physics.CheckSphere(groundCheck.position, sphereRadius, groundMask);
     }
 
-    private void EnablePlayerFreeMovement()
+    private void DisablePlayerMovement()
     {
-        enabledFreeMovement = true;
+        disablePlayerMovement = true;
     }
 }

@@ -15,11 +15,15 @@ public class ObstacleGenerator : MonoBehaviour
 
     public virtual void SpawnObstacle()
     {
-        if (!GameManager.Instance.playerReachedGoalkeeper)            
+        if (!GameManager.Instance.playerReachedGoalkeeper)   
         {
             int obstacleIndex = Random.Range(0, obstacles.Length);
             GameObject obstacle = obstacles[obstacleIndex];
             Instantiate(obstacle, transform);
+        }
+        else
+        {
+            gameObject.SetActive(false);
         }
 
     }

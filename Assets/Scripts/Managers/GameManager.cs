@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public int Difficulty { get; set; }
 
     public event Action OnPlayerTimeElapsed;
+    public event Action OnPlayerShooted;
 
     private void Awake()
     {
