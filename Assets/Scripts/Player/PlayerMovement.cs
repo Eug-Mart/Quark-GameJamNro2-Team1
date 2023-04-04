@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,15 +12,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float gravity = -50f;
     [SerializeField] GameObject maxLeft;
     [SerializeField] GameObject maxRight;
+    [SerializeField] float force;
 
     private Vector3 velocity;
-    private bool enabledFreeMovement;
+    private bool disablePlayerMovement, buttonIsPressed;
+
 
     private void Start()
     {
         if (GameManager.Instance != null)
         {
-            GameManager.Instance.OnPlayerTimeElapsed += EnablePlayerFreeMovement;
+            //GameManager.Instance.OnPlayerTimeElapsed += DisablePlayerMovement;
         }
     }
 
@@ -57,26 +59,18 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 MovementInTheZAxis()
     {
-        float valueEjeZ = Input.GetAxis("Horizontal");
+        float valueEjeZ = Input.GetAxis("Horizontal");        
         float valueEjeX = Input.GetAxis("Vertical");
 
-        if (!enabledFreeMovement)
-        {
-            return transform.forward * valueEjeZ;
-        }
-        else
-        {
-            return transform.forward * valueEjeZ + transform.right * -valueEjeX;
-        }
-        
+        return transform.forward * valueEjeZ;
     }
     private bool CheckPlayerIsGrounded()
     {
         return Physics.CheckSphere(groundCheck.position, sphereRadius, groundMask);
     }
 
-    private void EnablePlayerFreeMovement()
+    private void DisablePlayerMovement()
     {
-        enabledFreeMovement = true;
+        disablePlayerMovement = true;
     }
 }

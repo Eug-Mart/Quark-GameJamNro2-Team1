@@ -89,6 +89,7 @@ public class SoccerGoal : MonoBehaviour
         } else 
         {
             _targetArcher.transform.position = new Vector3(gameObjectArcher.transform.position.x, gameObjectArcher.transform.position.y, gameObjectArcher.transform.position.z - archer.ArcherkeeperZDistance);
+            archer.setMovementStartsRight(false);
         }
     }
     
@@ -98,7 +99,8 @@ public class SoccerGoal : MonoBehaviour
         while (Vector3.Distance(transform.position, _targetGoal.transform.position) > 0.05f)
         {
             Vector3 direction = _targetGoal.transform.position - transform.position;
-            transform.Translate(direction.normalized * goal.TargetSpeed * Time.deltaTime);
+            float zDirection = direction.z;
+            transform.Translate(0f, 0f, zDirection * goal.TargetSpeed * Time.deltaTime);
             yield return null;
         }
         yield return new WaitForSeconds(goal.WaitingTime);
@@ -108,14 +110,15 @@ public class SoccerGoal : MonoBehaviour
 
     IEnumerator MoveTowardsTargetOverTimeCoroutineArcher()
     {
-        goal.setIsMoving(true);
+        archer.setIsMoving(true);
         while (Vector3.Distance(gameObjectArcher.transform.position, _targetArcher.transform.position) > 0.05f)
         {
             Vector3 direction = _targetArcher.transform.position - gameObjectArcher.transform.position;
-            gameObjectArcher.transform.Translate(direction.normalized * archer.TargetSpeed * Time.deltaTime);
+            float zDirection = direction.z;
+            gameObjectArcher.transform.Translate(0f, 0f, zDirection * archer.TargetSpeed * Time.deltaTime);
             yield return null;
         }
         archer.setIsMoving(false);
-        setMachineStatusNumber(MachineStatusNumber.moveArcher);
+        setMachineStatusNumber(MachineStatusNumber.restartStatus);
     }    
 }
