@@ -13,10 +13,15 @@ public class BallController : MonoBehaviour
 
     private Vector2 startPos;
 
+    private bool ballKicked;
+    private float timeElapsed;
+    public Animator anim;
+
 
     void Start()
     {
         horizontal = transform.position.x;
+        anim = GetComponent<Animator>();
         vertical = transform.position.y;        
     }
 
@@ -24,7 +29,7 @@ public class BallController : MonoBehaviour
     {
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            startPos = Input.GetTouch(0).position;
+            startPos = Input.GetTouch(0).position;                                 
         }
 
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
@@ -35,6 +40,24 @@ public class BallController : MonoBehaviour
             float distance = Vector2.Distance(startPos, endPos);
 
             GetComponent<Rigidbody>().AddForce(new Vector3(direction.x, direction.y, gameObject.transform.forward.z) * force, ForceMode.Impulse);
+ 
+            ballKicked = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            ballKicked = true;
+            anim.SetBool("BallKicked", true);
+        }
+
+        if (ballKicked)
+        {
+            timeElapsed += Time.deltaTime;
+        }
+
+        if (timeElapsed >= 10f)
+        {            
+            GameManager.Instance.IncreaseDifficulty();
         }
     }
 

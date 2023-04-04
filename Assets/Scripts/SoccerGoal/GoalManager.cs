@@ -15,7 +15,7 @@ public class GoalManager : MonoBehaviour
     {
         if (GameManager.Instance != null)
         {
-            GameManager.Instance.OnPlayerTimeElapsed += EnableGoalKeeper;
+            //GameManager.Instance.OnPlayerTimeElapsed += EnableGoalKeeper;
         }        
     }
 

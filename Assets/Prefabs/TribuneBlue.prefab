@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5507819444892034275}
   - component: {fileID: 508257965385738787}
   - component: {fileID: 3408032034123218995}
+  - component: {fileID: 4943140564991830857}
   m_Layer: 0
   m_Name: TribuneBlue
   m_TagString: Untagged
@@ -84,6 +85,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollFactor: 1
   gameVelocity: {x: 20, y: 0, z: 0}
+--- !u!114 &4943140564991830857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3837753085273920150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4864b785391934448c365519bb42eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5246618770348845647
 GameObject:
   m_ObjectHideFlags: 0

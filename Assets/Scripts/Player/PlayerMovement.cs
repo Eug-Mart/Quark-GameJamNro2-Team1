@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,15 +12,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float gravity = -50f;
     [SerializeField] GameObject maxLeft;
     [SerializeField] GameObject maxRight;
+    [SerializeField] float force;
 
     private Vector3 velocity;
-    private bool disablePlayerMovement;
+    private bool disablePlayerMovement, buttonIsPressed;
+
 
     private void Start()
     {
         if (GameManager.Instance != null)
         {
-            GameManager.Instance.OnPlayerTimeElapsed += DisablePlayerMovement;
+            //GameManager.Instance.OnPlayerTimeElapsed += DisablePlayerMovement;
         }
     }
 
@@ -57,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 MovementInTheZAxis()
     {
-        float valueEjeZ = Input.GetAxis("Horizontal");
+        float valueEjeZ = Input.GetAxis("Horizontal");        
         float valueEjeX = Input.GetAxis("Vertical");
 
         return transform.forward * valueEjeZ;

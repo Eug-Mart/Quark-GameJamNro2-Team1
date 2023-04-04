@@ -17,6 +17,7 @@ public class ObstacleGenerator : MonoBehaviour
     {
         if (!GameManager.Instance.playerReachedGoalkeeper)   
         {
+            gameObject.SetActive(true);
             int obstacleIndex = Random.Range(0, obstacles.Length);
             GameObject obstacle = obstacles[obstacleIndex];
             Instantiate(obstacle, transform);
